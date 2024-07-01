@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather type Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="radio"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        select{
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        input[type="radio"] {
+            width: auto;
+        }
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather type classification</h1>
+    <div class="container">
+        <form action='/classify' method='POST'>
+            <div class="form-group">
+                <label for="temp">Temperature(degress celcius)</label>
+                <input type="number" id="temp" name="temp" min=-20 max=120 step = 0.1 value="{{ request.form.temp if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="hum">Humidity(%)</label>
+                <input type="number" id="hum" name="hum" min=0 max=100 step="0.1" value="{{ request.form.hum if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="wind">Wind speed(km/hr)</label>
+                <input type="number" id="wind" name="wind" min=0 step="0.1" value="{{ request.form.wind if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="prec">Precipitation(%)</label>
+                <input type="number" id="prec" name="prec" min=0 max=100 step="0.1" value="{{ request.form.prec if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="cloud">Cloud cover</label>
+                <select id="cloud" name="cloud">
+                    <option value="overcast">Overcast</option>
+                    <option value="partly cloudy">Partly cloudy</option>
+                    <option value="clear">Clear</option>
+                    <option value="cloudy">Cloudy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="atm">Atmospheric Pressure(hPa)</label>
+                <input type="number" id="atm" name="atm" min=750 max=1300 value="{{ request.form.atm if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="uv">UV index</label>
+                <input type="number" id="uv" name="uv" min=0 value="{{ request.form.uv if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="season">Season</label>
+                <select id="season" name="season">
+                    <option value="Winter">Winter</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Autumn">Autumn</option>
+                    <option value="Summer">Summer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="visi">Visibility(km)</label>
+                <input type="number" id="visi" name="visi" min=0 step=0.1 value="{{ request.form.visi if request.form else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="loc">Location</label>
+                <select id="loc" name="loc">
+                    <option value="mountain">Mountain</option>
+                    <option value="inland">Inland</option>
+                    <option value="coastal">Coastal</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="classification">Classify</button>
+            </div>
+        </form>
+        <h3>{{ text }}</h3>
+    </div>
+</body>
+</html>
